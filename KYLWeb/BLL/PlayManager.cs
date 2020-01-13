@@ -22,5 +22,10 @@ namespace BLL
         {
             return play.GetAllPlaysOfUser(user);
         }
+
+        public Play AddPlayInDB(Play play)
+        {
+            return this.play.AddPlayInDB(play);
+        }
     }
 }

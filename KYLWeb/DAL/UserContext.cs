@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL
 {
-    class UserContext : IUser
+    public class UserContext : IUser
     {
         public User GetUserById(int id)
         {
@@ -28,6 +28,7 @@ namespace DAL
             sqlconn.Close();
 
             user.Plays = GetPlays(id);
+            user.Associations = GetAssociations(id);
 
             return user;
         }
@@ -39,24 +40,46 @@ namespace DAL
             string mainconn = ConnectionString.connectionString;
             SqlConnection sqlconn = new SqlConnection(mainconn);
             string sqlquery = "select [id], [title], [description], [association], [writer] " +
-                "from dbo.[play] where id = @id";
+                "from dbo.[play] where writer = @id or association in (select [associationId] from [user_association] where userId = @id)";
+            sqlconn.Open();
+            SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
+            sqlComm.Parameters.AddWithValue("@id", id);
+            SqlDataReader sdr = sqlComm.ExecuteReader();
+            while (sdr.Read())
+            {
+                Play play = new Play();
+                play.Id = sdr.GetInt32(0);
+                play.Title = sdr.GetString(1);
+                play.Description = sdr.GetString(2);
+                play.AssociationId = sdr.GetInt32(3);
+                play.WriterId = sdr.GetInt32(4);
+                plays.Add(play);
+            }
+
+            sqlconn.Close();
+
+            return plays;
+        }
+
+        private List<int> GetAssociations(int id)
+        {
+            List<int> associations = new List<int>();
+
+            string mainconn = ConnectionString.connectionString;
+            SqlConnection sqlconn = new SqlConnection(mainconn);
+            string sqlquery = "select [associationId] " +
+                "from dbo.[user_association] where userId = @id";
             sqlconn.Open();
             SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
             sqlComm.Parameters.AddWithValue("@id", id);
             SqlDataReader sdr = sqlComm.ExecuteReader();
             if (sdr.Read())
             {
-                Play play = new Play();
-                play.Id = sdr.GetInt32(0);
-                play.Title = sdr.GetString(1);
-                play.Description = sdr.GetString(2);
-                int association = sdr.GetInt32(3);
-                int writer = sdr.GetInt32(4);
-                plays.Add(play);
+                associations.Add(sdr.GetInt32(0));
             }
             sqlconn.Close();
 
-            return plays;
+            return associations;
         }
     }
 }

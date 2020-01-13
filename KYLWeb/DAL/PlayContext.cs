@@ -26,6 +26,36 @@ namespace DAL
                 play.Id = sdr.GetInt32(0);
                 play.Title = sdr.GetString(1);
                 play.Description = sdr.GetString(2);
+                play.AssociationId = sdr.GetInt32(3);
+                play.WriterId = sdr.GetInt32(4);
+            }
+            sqlconn.Close();
+
+            List<Scene> scenes = GetScenes(play.Id);
+
+            return play;
+        }
+
+        public Play GetPlayByTitleAndWriter(String title, int writer)
+        {
+            Play play = new Play();
+
+            string mainconn = ConnectionString.connectionString;
+            SqlConnection sqlconn = new SqlConnection(mainconn);
+            string sqlquery = "select [id], [title], [description], [association], [writer] " +
+                "from dbo.[play] where title = @title and writer = @writer";
+            sqlconn.Open();
+            SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
+            sqlComm.Parameters.AddWithValue("@title", title);
+            sqlComm.Parameters.AddWithValue("@writer", writer);
+            SqlDataReader sdr = sqlComm.ExecuteReader();
+            if (sdr.Read())
+            {
+                play.Id = sdr.GetInt32(0);
+                play.Title = sdr.GetString(1);
+                play.Description = sdr.GetString(2);
+                play.AssociationId = sdr.GetInt32(3);
+                play.WriterId = sdr.GetInt32(4);
             }
             sqlconn.Close();
 
@@ -85,6 +115,26 @@ namespace DAL
             sqlconn.Close();
 
             return plays;
+        }
+
+        public Play AddPlayInDB(Play play)
+        {
+            string mainconn = ConnectionString.connectionString;
+            SqlConnection sqlconn = new SqlConnection(mainconn);
+            string sqlquery = "INSERT INTO dbo.[play] ([title], [description], [association], [writer])" +
+                "VALUES (@title, @description, @association, @writer)";
+            sqlconn.Open();
+            SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
+            sqlComm.Parameters.AddWithValue("@title", play.Title);
+            sqlComm.Parameters.AddWithValue("@description", play.Description);
+            sqlComm.Parameters.AddWithValue("@association", play.AssociationId);
+            sqlComm.Parameters.AddWithValue("@writer", play.WriterId);
+            SqlDataReader sdr = sqlComm.ExecuteReader();
+            sqlconn.Close();
+
+            Play play2 = GetPlayByTitleAndWriter(play.Title, play.WriterId);
+
+            return play2;
         }
     }
 }

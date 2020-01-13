@@ -11,6 +11,6 @@ namespace BLL
         public String Description { get; set; }
         public int AssociationId { get; set; }
         public int WriterId { get; set; }
-        public List<Scene> Scenes { get; set; }
+        public List<int> Scenes { get; set; }
     }
 }
