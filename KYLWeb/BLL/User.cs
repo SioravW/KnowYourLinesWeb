@@ -30,14 +30,19 @@ namespace BLL
             return userData.GetPlayById(id);
         }
 
-        public List<Play> GetAllPlaysOfUser(User user)
+        public List<Play> GetAllPlays()
         {
-            return userData.GetAllPlays(user);
+            return userData.GetAllPlays(this);
         }
 
         public Play AddPlayInDB(Play play)
         {
-            return this.userData.AddPlayInDB(play);
+            return userData.AddPlayInDB(play);
+        }
+
+        public Association GetAssociationById(int id)
+        {
+            return userData.GetAssociationById(id);
         }
 
     }

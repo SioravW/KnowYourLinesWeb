@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DAL
 {
-    public class PlayContext
+    public class PlayData
     {
         
     }

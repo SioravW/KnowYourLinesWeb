@@ -1,4 +1,4 @@
-﻿@model BLL.Play
+﻿@model KYLWeb.Models.PlayViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -23,16 +23,16 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AssociationId)
+            @Html.DisplayNameFor(model => model.Association)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AssociationId)
+            @Html.DisplayFor(model => model.Association)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.WriterId)
+            @Html.DisplayNameFor(model => model.Writer)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.WriterId)
+            @Html.DisplayFor(model => model.Writer)
         </dd>
     </dl>
 </div>

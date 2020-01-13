@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BLL.Play>
+﻿@model IEnumerable<KYLWeb.Models.PlayViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,10 +19,10 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AssociationId)
+                @Html.DisplayNameFor(model => model.Association)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WriterId)
+                @Html.DisplayNameFor(model => model.Writer)
             </th>
             <th></th>
         </tr>
@@ -37,14 +37,15 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AssociationId)
+                @Html.DisplayFor(modelItem => item.Association)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WriterId)
+                @Html.DisplayFor(modelItem => item.Writer)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id}) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }

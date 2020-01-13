@@ -14,7 +14,7 @@ namespace DAL
 
             string mainconn = ConnectionString.connectionString;
             SqlConnection sqlconn = new SqlConnection(mainconn);
-            string sqlquery = "select [id], [username]" +
+            string sqlquery = "select [id], [name], [username] " +
                 "from dbo.[user] where id = @id";
             sqlconn.Open();
             SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
@@ -23,7 +23,8 @@ namespace DAL
             if (sdr.Read())
             {
                 user.Id = sdr.GetInt32(0);
-                user.Username = sdr.GetString(1);
+                user.FullName = sdr.GetString(1);
+                user.Username = sdr.GetString(2);
             }
             sqlconn.Close();
 

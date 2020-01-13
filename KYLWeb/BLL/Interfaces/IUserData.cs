@@ -11,5 +11,7 @@ namespace BLL
         public List<Play> GetAllPlays(User user);
 
         public Play AddPlayInDB(Play play);
+
+        public Association GetAssociationById(int id);
     }
 }

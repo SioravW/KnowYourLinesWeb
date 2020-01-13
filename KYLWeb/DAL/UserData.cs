@@ -135,5 +135,27 @@ namespace DAL
 
             return play2;
         }
+
+        public Association GetAssociationById(int id)
+        {
+            Association association = new Association();
+
+            string mainconn = ConnectionString.connectionString;
+            SqlConnection sqlconn = new SqlConnection(mainconn);
+            string sqlquery = "select [id], [name] " +
+                "from dbo.[association] where id = @id";
+            sqlconn.Open();
+            SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
+            sqlComm.Parameters.AddWithValue("@id", id);
+            SqlDataReader sdr = sqlComm.ExecuteReader();
+            if (sdr.Read())
+            {
+                association.Id = sdr.GetInt32(0);
+                association.Name = sdr.GetString(1);
+            }
+            sqlconn.Close();
+
+            return association;
+        }
     }
 }

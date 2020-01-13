@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using KYLWeb.Models;
 using BLL;
 using DAL;
+using Microsoft.AspNetCore.Http;
 
 namespace KYLWeb.Controllers
 {
@@ -26,14 +27,34 @@ namespace KYLWeb.Controllers
         public IActionResult Index()
         {
             User user = userCollection.GetUserById(1);
-            List<Play> plays = user.Plays;
-            return View(plays);
+            List<PlayViewModel> playViewModels = new List<PlayViewModel>();
+            foreach(Play play in user.Plays)
+            {
+                PlayViewModel pvm = new PlayViewModel
+                {
+                    Id = play.Id,
+                    Title = play.Title,
+                    Description = play.Description,
+                    Association = this.user.GetAssociationById(play.AssociationId).Name,
+                    Writer = userCollection.GetUserById(play.WriterId).FullName,
+                };
+                playViewModels.Add(pvm);
+            }
+            return View(playViewModels);
         }
 
         public IActionResult Details(int id)
         {
             Play play = user.GetPlayById(id);
-            return View(play);
+            PlayViewModel pvm = new PlayViewModel
+            {
+                Id = play.Id,
+                Title = play.Title,
+                Description = play.Description,
+                Association = user.GetAssociationById(play.AssociationId).Name,
+                Writer = userCollection.GetUserById(play.WriterId).FullName,
+            };
+            return View(pvm);
         }
 
         public IActionResult Create()
@@ -42,8 +63,14 @@ namespace KYLWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Play play)
+        public IActionResult Create(PlayViewModel playViewModel)
         {
+            Play play = new Play
+            {
+                Title = playViewModel.Title,
+                Description = playViewModel.Description,
+                WriterId = 1
+            };
             Play addedPlay = user.AddPlayInDB(play);
 
             return RedirectToAction("Details", new { id = addedPlay.Id});
