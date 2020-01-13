@@ -10,6 +10,7 @@ namespace KYLWeb.Models
     public class PlayViewModel
     {
         public int Id { get; set; }
+
         [Required(ErrorMessage = "A title is required")]
         public String Title { get; set; }
 
