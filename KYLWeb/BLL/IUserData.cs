@@ -4,8 +4,8 @@ using System.Text;
 
 namespace BLL
 {
-    public interface IUser
+    public interface IUserData
     {
-        public User GetUserById(int id);
+        
     }
 }

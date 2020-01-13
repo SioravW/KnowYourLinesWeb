@@ -14,23 +14,22 @@ namespace KYLWeb.Controllers
     public class HomeController : Controller
     {
         PlayContext playContext = new PlayContext();
-        UserContext userContext = new UserContext();
+        UserCollectionData userContext = new UserCollectionData();
         private readonly PlayManager pm;
-        private readonly UserManager um;
+        private readonly UserCollection userCollection;
 
         public HomeController()
         {
             pm = new PlayManager(playContext);
-            um = new UserManager(userContext);
+            userCollection = new UserCollection(userContext);
         }
         public IActionResult Index()
         {
-            User user = um.GetUserById(1);
+            User user = userCollection.GetUserById(1);
             List<Play> plays = user.Plays;
             return View(plays);
         }
 
-        [HttpGet]
         public IActionResult Details(int id)
         {
             Play play = pm.GetPlayById(id);

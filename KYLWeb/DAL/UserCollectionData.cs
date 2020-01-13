@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL
 {
-    public class UserContext : IUser
+    public class UserCollectionData : IUserCollectionData
     {
         public User GetUserById(int id)
         {
