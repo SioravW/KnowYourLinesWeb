@@ -13,15 +13,15 @@ namespace KYLWeb.Controllers
 {
     public class HomeController : Controller
     {
-        PlayContext playContext = new PlayContext();
-        UserCollectionData userContext = new UserCollectionData();
-        private readonly PlayManager pm;
+        UserData userContext = new UserData();
+        UserCollectionData userCollectionContext = new UserCollectionData();
+        private readonly User user;
         private readonly UserCollection userCollection;
 
         public HomeController()
         {
-            pm = new PlayManager(playContext);
-            userCollection = new UserCollection(userContext);
+            user = new User(userContext);
+            userCollection = new UserCollection(userCollectionContext);
         }
         public IActionResult Index()
         {
@@ -32,7 +32,7 @@ namespace KYLWeb.Controllers
 
         public IActionResult Details(int id)
         {
-            Play play = pm.GetPlayById(id);
+            Play play = user.GetPlayById(id);
             return View(play);
         }
 
@@ -44,7 +44,7 @@ namespace KYLWeb.Controllers
         [HttpPost]
         public IActionResult Create(Play play)
         {
-            Play addedPlay = pm.AddPlayInDB(play);
+            Play addedPlay = user.AddPlayInDB(play);
 
             return RedirectToAction("Details", new { id = addedPlay.Id});
         }
