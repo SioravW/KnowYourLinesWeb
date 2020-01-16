@@ -29,8 +29,9 @@ namespace DAL
                 play.WriterId = sdr.GetInt32(4);
             }
             sqlconn.Close();
-
-            List<Scene> scenes = GetScenes(play.Id);
+            PlayData playData = new PlayData();
+            play.Scenes = playData.GetScenes(play.Id);
+            play.Roles = playData.GetRoles(play.Id);
 
             return play;
         }
@@ -57,36 +58,13 @@ namespace DAL
                 play.WriterId = sdr.GetInt32(4);
             }
             sqlconn.Close();
-
-            List<Scene> scenes = GetScenes(play.Id);
+            PlayData playData = new PlayData();
+            play.Scenes = playData.GetScenes(play.Id);
+            play.Roles = playData.GetRoles(play.Id);
 
             return play;
         }
-
-        private List<Scene> GetScenes(int id)
-        {
-            List<Scene> scenes = new List<Scene>();
-
-            string mainconn = ConnectionString.connectionString;
-            SqlConnection sqlconn = new SqlConnection(mainconn);
-            string sqlquery = "select [id], [name], [number] " +
-                "from dbo.[scene] where playId = @id";
-            sqlconn.Open();
-            SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
-            sqlComm.Parameters.AddWithValue("@id", id);
-            SqlDataReader sdr = sqlComm.ExecuteReader();
-            if (sdr.Read())
-            {
-                Scene scene = new Scene();
-                scene.Id = sdr.GetInt32(0);
-                scene.Name = sdr.GetString(1);
-                scene.Number = sdr.GetInt32(2);
-                scenes.Add(scene);
-            }
-            sqlconn.Close();
-
-            return scenes;
-        }
+           
 
         public List<Play> GetAllPlays(User user)
         {
@@ -157,5 +135,7 @@ namespace DAL
 
             return association;
         }
+
+        
     }
 }

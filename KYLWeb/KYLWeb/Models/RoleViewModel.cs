@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace BLL
+namespace KYLWeb.Models
 {
-    public class Role
+    public class RoleViewModel
     {
         public int Id { get; set; }
         public String Name { get; set; }
         public String Description { get; set; }
-        public User Player { get; set; }
+        public String Player { get; set; }
     }
 }

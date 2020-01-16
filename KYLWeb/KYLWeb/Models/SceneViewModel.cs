@@ -7,5 +7,8 @@ namespace KYLWeb.Models
 {
     public class SceneViewModel
     {
+        public int Id { get; set; }
+        public int Number { get; set; }
+        public String Name { get; set; }
     }
 }

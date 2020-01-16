@@ -14,15 +14,15 @@ namespace KYLWeb.Controllers
 {
     public class HomeController : Controller
     {
-        UserData userContext = new UserData();
-        UserCollectionData userCollectionContext = new UserCollectionData();
+        UserData userData = new UserData();
+        UserCollectionData userCollectionData = new UserCollectionData();
         private readonly User user;
         private readonly UserCollection userCollection;
 
         public HomeController()
         {
-            user = new User(userContext);
-            userCollection = new UserCollection(userCollectionContext);
+            user = new User(userData);
+            userCollection = new UserCollection(userCollectionData);
         }
         public IActionResult Index()
         {
@@ -75,6 +75,5 @@ namespace KYLWeb.Controllers
 
             return RedirectToAction("Details", new { id = addedPlay.Id});
         }
-
     }
 }
