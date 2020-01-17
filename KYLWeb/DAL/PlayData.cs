@@ -16,7 +16,7 @@ namespace DAL
             string mainconn = ConnectionString.connectionString;
             SqlConnection sqlconn = new SqlConnection(mainconn);
             string sqlquery = "select [id], [name], [number] " +
-                "from dbo.[scene] where playId = @id";
+                "from dbo.[scene] where playId = @id;";
             sqlconn.Open();
             SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
             sqlComm.Parameters.AddWithValue("@id", id);
@@ -43,7 +43,7 @@ namespace DAL
             string mainconn = ConnectionString.connectionString;
             SqlConnection sqlconn = new SqlConnection(mainconn);
             string sqlquery = "select [id], [name], [description], [userId] " +
-                "from dbo.[role] where playId = @id";
+                "from dbo.[role] where playId = @id;";
             sqlconn.Open();
             SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
             sqlComm.Parameters.AddWithValue("@id", id);
@@ -70,7 +70,7 @@ namespace DAL
             string mainconn = ConnectionString.connectionString;
             SqlConnection sqlconn = new SqlConnection(mainconn);
             string sqlquery = "select [id], [name], [description],[userId] " +
-                "from dbo.[role] where id = @id";
+                "from dbo.[role] where id = @id;";
             sqlconn.Open();
             SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
             sqlComm.Parameters.AddWithValue("@id", id);
@@ -94,7 +94,7 @@ namespace DAL
             string mainconn = ConnectionString.connectionString;
             SqlConnection sqlconn = new SqlConnection(mainconn);
             string sqlquery = "select [id], [name], [number] " +
-                "from dbo.[scene] where id = @id";
+                "from dbo.[scene] where id = @id;";
             sqlconn.Open();
             SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
             sqlComm.Parameters.AddWithValue("@id", id);

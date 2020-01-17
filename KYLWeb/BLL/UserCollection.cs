@@ -15,6 +15,7 @@ namespace BLL
         }
 
         public UserCollection() { }
+
         public User GetUserById(int id)
         {
             return userCollection.GetUserById(id);

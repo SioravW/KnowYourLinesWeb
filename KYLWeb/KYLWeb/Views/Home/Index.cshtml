@@ -1,13 +1,9 @@
 ﻿@model IEnumerable<KYLWeb.Models.PlayViewModel>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Index</h1>
+<h1>My plays</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create a new play</a>
 </p>
 <table class="table">
     <thead>
@@ -43,9 +39,7 @@
                 @Html.DisplayFor(modelItem => item.Writer)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
             </td>
         </tr>
 }

@@ -54,6 +54,7 @@ namespace KYLWeb.Controllers
                 Association = user.GetAssociationById(play.AssociationId).Name,
                 Writer = userCollection.GetUserById(play.WriterId).FullName,
             };
+            ViewBag.Title = play.Title;
             return View(pvm);
         }
 

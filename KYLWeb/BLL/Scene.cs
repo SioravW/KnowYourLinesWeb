@@ -24,5 +24,10 @@ namespace BLL
         {
             return sceneData.GetLines(id);
         }
+
+        public Role AddRoleInDB(Role role)
+        {
+            return sceneData.AddRoleInDB(role);
+        }
     }
 }

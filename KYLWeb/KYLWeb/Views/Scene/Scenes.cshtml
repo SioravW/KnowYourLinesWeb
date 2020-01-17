@@ -1,13 +1,10 @@
 ﻿@model IEnumerable<KYLWeb.Models.SceneViewModel>
 
-@{
-    ViewData["Title"] = "Scenes";
-}
 
-<h1>Scenes</h1>
+<h1>Scenes in @ViewBag.Title</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create a new scene</a>
 </p>
 <table class="table">
     <thead>
@@ -31,9 +28,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Open Scene", "Lines", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Open Scene", "Lines", new { id=item.Id })
             </td>
         </tr>
 }

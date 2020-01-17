@@ -33,13 +33,14 @@ namespace KYLWeb.Controllers
                 SceneViewModel sceneViewModel = new SceneViewModel { Id = scene.Id, Number = scene.Number, Name = scene.Name };
                 sceneViewModels.Add(sceneViewModel);
             }
-
+            ViewBag.Title = play.Title;
             return View(sceneViewModels);
         }
 
         public IActionResult Lines(int id)
         {
             Scene scene = play.GetSceneById(id);
+            ViewBag.Name = scene.Name;
             List<LineViewModel> lines = new List<LineViewModel>();
             foreach(Line line in scene.Lines)
             {
@@ -54,7 +55,7 @@ namespace KYLWeb.Controllers
                 {
                     if(roles != "")
                     {
-                        roles = roles + ",";
+                        roles = roles + ", ";
                     }
                     roles = roles + role.Name;
                 }

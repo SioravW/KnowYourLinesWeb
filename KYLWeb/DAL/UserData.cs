@@ -15,7 +15,7 @@ namespace DAL
             string mainconn = ConnectionString.connectionString;
             SqlConnection sqlconn = new SqlConnection(mainconn);
             string sqlquery = "select [id], [title], [description], [association], [writer] " +
-                "from dbo.[play] where id = @id";
+                "from dbo.[play] where id = @id;";
             sqlconn.Open();
             SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
             sqlComm.Parameters.AddWithValue("@id", id);
@@ -43,7 +43,7 @@ namespace DAL
             string mainconn = ConnectionString.connectionString;
             SqlConnection sqlconn = new SqlConnection(mainconn);
             string sqlquery = "select [id], [title], [description], [association], [writer] " +
-                "from dbo.[play] where title = @title and writer = @writer";
+                "from dbo.[play] where title = @title and writer = @writer;";
             sqlconn.Open();
             SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
             sqlComm.Parameters.AddWithValue("@title", title);
@@ -73,7 +73,7 @@ namespace DAL
             string mainconn = ConnectionString.connectionString;
             SqlConnection sqlconn = new SqlConnection(mainconn);
             string sqlquery = "select [id], [name], [number] " +
-                "from dbo.[scene] where writer = @usId or association in @assId";
+                "from dbo.[scene] where writer = @usId;";
             sqlconn.Open();
             SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
             sqlComm.Parameters.AddWithValue("@usId", user.Id);
@@ -99,7 +99,7 @@ namespace DAL
             string mainconn = ConnectionString.connectionString;
             SqlConnection sqlconn = new SqlConnection(mainconn);
             string sqlquery = "INSERT INTO dbo.[play] ([title], [description], [association], [writer])" +
-                "VALUES (@title, @description, @association, @writer)";
+                "VALUES (@title, @description, @association, @writer);";
             sqlconn.Open();
             SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
             sqlComm.Parameters.AddWithValue("@title", play.Title);
@@ -121,7 +121,7 @@ namespace DAL
             string mainconn = ConnectionString.connectionString;
             SqlConnection sqlconn = new SqlConnection(mainconn);
             string sqlquery = "select [id], [name] " +
-                "from dbo.[association] where id = @id";
+                "from dbo.[association] where id = @id;";
             sqlconn.Open();
             SqlCommand sqlComm = new SqlCommand(sqlquery, sqlconn);
             sqlComm.Parameters.AddWithValue("@id", id);

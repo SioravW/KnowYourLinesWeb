@@ -14,28 +14,20 @@ namespace KYLWeb.Controllers
         UserData userData = new UserData();
         UserCollectionData userCollectionData = new UserCollectionData();
         PlayData playData = new PlayData();
+        SceneData sceneData = new SceneData();
         private readonly User user;
         private readonly UserCollection userCollection;
         private readonly Play play;
+        private readonly Scene scene;
 
         public RoleController()
         {
             user = new User(userData);
             userCollection = new UserCollection(userCollectionData);
             play = new Play(playData);
+            scene = new Scene(sceneData);
         }
-        public IActionResult Index(int id)
-        {
-            Role role = play.GetRoleById(id);
-            RoleViewModel roleViewModel = new RoleViewModel
-            {
-                Id = role.Id,
-                Name = role.Name,
-                Description = role.Description,
-                Player = userCollection.GetUserById(role.Player.Id).FullName
-            };
-            return View(roleViewModel);
-        }
+        
         public IActionResult Roles(int id)
         {
             Play play = user.GetPlayById(id);
@@ -45,8 +37,28 @@ namespace KYLWeb.Controllers
                 RoleViewModel roleViewModel = new RoleViewModel { Id = role.Id, Name = role.Name, Description = role.Description, Player = userCollection.GetUserById(role.Player.Id).FullName };
                 roleViewModels.Add(roleViewModel);
             }
+            ViewBag.Play = play.Title;
 
             return View(roleViewModels);
+        }
+
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(RoleViewModel roleViewModel)
+        {
+            Role role = new Role
+            {
+                Name = roleViewModel.Name,
+                Description = roleViewModel.Description
+            };
+            Role addedPlay = scene.AddRoleInDB(role);
+
+            return RedirectToAction("Roles", new { id = });
         }
     }
 }
